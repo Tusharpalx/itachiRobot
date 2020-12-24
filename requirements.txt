@@ -21,6 +21,8 @@ google_trans_new
 jikanpy
 speedtest-cli
 coffeehouse
+redis
+pyrogram
 regex
 redis
 bleach
