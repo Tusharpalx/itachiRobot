@@ -10,7 +10,7 @@ from telegram.utils.helpers import mention_html
 from alphabet_detector import AlphabetDetector
 
 import ItachiRobot.modules.sql.locks_sql as sql
-from ItachiRobot import dispatcher, DRAGONS, LOGGER
+from ItachiRobot import dispatcher, DRAGONS, LOGGER, REDIS
 from ItachiRobot.modules.disable import DisableAbleCommandHandler
 from ItachiRobot.modules.helper_funcs.chat_status import (
     can_delete,
@@ -375,15 +375,6 @@ def unlock(update, context) -> str:
                     chat_name = update.effective_message.chat.title
                     text = "Unlocked {} for everyone!".format(ltype)
 
-                can_change_info = chat.get_member(
-                    context.bot.id).can_change_info
-                if not can_change_info:
-                    send_message(
-                        update.effective_message,
-                        "I don't have permission to change group info.",
-                        parse_mode="markdown")
-                    return
-
                 current_permission = context.bot.getChat(chat_id).permissions
                 context.bot.set_chat_permissions(
                     chat_id=chat_id,
@@ -422,7 +413,12 @@ def unlock(update, context) -> str:
 def del_lockables(update, context):
     chat = update.effective_chat  # type: Optional[Chat]
     message = update.effective_message  # type: Optional[Message]
-
+    user = update.effective_user
+    chat_id = str(chat.id)[1:] 
+    approve_list = list(REDIS.sunion(f'approve_list_{chat_id}'))
+    target_user = mention_html(user.id, user.first_name)
+    if target_user in approve_list:
+        return
     for lockable, filter in LOCK_TYPES.items():
         if lockable == "rtl":
             if sql.is_locked(chat.id, lockable) and can_delete(
