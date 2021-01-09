@@ -277,6 +277,83 @@ def kickme(update: Update, context: CallbackContext):
     else:
         update.effective_message.reply_text("Huh? I can't :/")
 
+@run_async
+@connection_status
+@bot_admin
+@can_restrict
+@user_admin
+@user_can_ban
+@loggable
+def punch(update: Update, context: CallbackContext) -> str:
+    chat = update.effective_chat
+    user = update.effective_user
+    message = update.effective_message
+    log_message = ""
+    bot, args = context.bot, context.args
+    user_id, reason = extract_user_and_text(message, args)
+
+    if not user_id:
+        message.reply_text("I doubt that's a user.")
+        return log_message
+
+    try:
+        member = chat.get_member(user_id)
+    except BadRequest as excp:
+        if excp.message == "User not found":
+            message.reply_text("I can't seem to find this user.")
+            return log_message
+        else:
+            raise
+
+    if user_id == bot.id:
+        message.reply_text("Yeahhh I'm not gonna do that.")
+        return log_message
+
+    if is_user_ban_protected(chat, user_id):
+        message.reply_text("I really wish I could punch this user....")
+        return log_message
+
+    res = chat.unban_member(user_id)  # unban on current user = kick
+    if res:
+        # bot.send_sticker(chat.id, BAN_STICKER)  # banhammer marie sticker
+        bot.sendMessage(
+            chat.id,
+            f"One Punched! {mention_html(member.user.id, html.escape(member.user.first_name))}.",
+            parse_mode=ParseMode.HTML)
+        log = (
+            f"<b>{html.escape(chat.title)}:</b>\n"
+            f"#KICKED\n"
+            f"<b>Admin:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
+            f"<b>User:</b> {mention_html(member.user.id, html.escape(member.user.first_name))}"
+        )
+        if reason:
+            log += f"\n<b>Reason:</b> {reason}"
+
+        return log
+
+    else:
+        message.reply_text("Well damn, I can't punch that user.")
+
+    return log_message
+
+
+@run_async
+@bot_admin
+@can_restrict
+def punchme(update: Update, context: CallbackContext):
+    user_id = update.effective_message.from_user.id
+    if is_user_admin(update.effective_chat, user_id):
+        update.effective_message.reply_text(
+            "I wish I could... but you're an admin.")
+        return
+
+    res = update.effective_chat.unban_member(
+        user_id)  # unban on current user = kick
+    if res:
+        update.effective_message.reply_text("*punches you out of the group*")
+    else:
+        update.effective_message.reply_text("Huh? I can't :/")
+
 
 @run_async
 @connection_status
@@ -381,26 +458,31 @@ __help__ = """
  • `/ban <userhandle>`*:* bans a user. (via handle, or reply)
  • `/tban <userhandle> x(m/h/d)`*:* bans a user for `x` time. (via handle, or reply). `m` = `minutes`, `h` = `hours`, `d` = `days`.
  • `/unban <userhandle>`*:* unbans a user. (via handle, or reply)
- • `/kick <userhandle>`*:* Punches a user out of the group, (via handle, or reply)
+ • `/kick or /punch <userhandle>`*:* Punches a user out of the group, (via handle, or reply)
 """
 
 BAN_HANDLER = CommandHandler("ban", ban)
 TEMPBAN_HANDLER = CommandHandler(["tban"], temp_ban)
 KICK_HANDLER = CommandHandler("kick", kick)
+PUNCH_HANDLER = CommandHandler("punch", punch)
 UNBAN_HANDLER = CommandHandler("unban", unban)
 ROAR_HANDLER = CommandHandler("roar", selfunban)
 KICKME_HANDLER = DisableAbleCommandHandler(
     "kickme", kickme, filters=Filters.group)
+PUNCHME_HANDLER = DisableAbleCommandHandler(
+    "punchme", punchme, filters=Filters.group)
 
 dispatcher.add_handler(BAN_HANDLER)
 dispatcher.add_handler(TEMPBAN_HANDLER)
 dispatcher.add_handler(KICK_HANDLER)
 dispatcher.add_handler(UNBAN_HANDLER)
+dispatcher.add_handler(PUNCH_HANDLER)
+dispatcher.add_handler(PUNCHME_HANDLER)
 dispatcher.add_handler(ROAR_HANDLER)
 dispatcher.add_handler(KICKME_HANDLER)
 
 __mod_name__ = "Bans"
 __handlers__ = [
     BAN_HANDLER, TEMPBAN_HANDLER, KICK_HANDLER, UNBAN_HANDLER, ROAR_HANDLER,
-    KICKME_HANDLER
+    KICKME_HANDLER, PUNCHME_HANDLER, PUNCH_HANDLER
 ]
