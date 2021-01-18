@@ -12,17 +12,13 @@ from PIL import ImageDraw
 from pyrogram import Client, filters
 from pyrogram.types import Message, InlineKeyboardButton, InlineKeyboardMarkup
 from youtube_search import YoutubeSearch
-from config import owner_id, bot_token, radio_link, sudo_chat_id
+from ItachiRobot import owner_id, bot_token, radio_link
 
 @app.on_message(
     filters.command(["jiosaavn"])
-    & filters.chat(sudo_chat_id)
-    & ~filters.edited
-)
+
 async def jiosaavn(_, message: Message):
     global blacks
-    if message.from_user.id in blacks:
-        await message.reply_text("You're Blacklisted, So Stop Spamming.")
         return
     global s
     global m
@@ -132,8 +128,7 @@ async def jiosaavn(_, message: Message):
 # Youtube Play
 
 @app.on_message(
-    filters.command(["youtube"]) & filters.chat(sudo_chat_id) & ~filters.edited
-)
+    filters.command(["youtube"])
 async def ytplay(_, message: Message):
     global blacks
     if message.from_user.id in blacks:
@@ -246,13 +241,8 @@ async def ytplay(_, message: Message):
 
 @app.on_message(
     filters.command(["playlist"])
-    & filters.chat(sudo_chat_id)
-    & ~filters.edited
 )
 async def playlist(_, message: Message):
-    global blacks
-    if message.from_user.id in blacks:
-        await message.reply_text("You're Blacklisted, So Stop Spamming.")
         return
     global m
     global s
@@ -316,12 +306,8 @@ async def playlist(_, message: Message):
 
 
 @app.on_message(
-    filters.command(["telegram"]) & filters.chat(sudo_chat_id) & ~filters.edited
-)
+    filters.command(["telegram"])
 async def tgplay(_, message: Message):
-    global blacks
-    if message.from_user.id in blacks:
-        await message.reply_text("You're Blacklisted, So Stop Spamming.")
         return
     global m
     global s
@@ -472,58 +458,6 @@ async def end_callback(_, CallbackQuery):
         chat_id,
         f"{CallbackQuery.from_user.mention} - {CallbackQuery.from_user.id} Stopped The Music.",
     )
-
-
-# Ban
-
-
-@app.on_message(
-    filters.command(["black"]) & filters.chat(sudo_chat_id) & ~filters.edited
-)
-async def blacklist(_, message: Message):
-    global blacks
-    if message.from_user.id != owner_id:
-        await message.reply_text("Only owner can blacklist users.")
-        return
-    if not message.reply_to_message:
-        await message.reply_text(
-            "Reply to a message with /black to blacklist a user."
-        )
-        return
-    if message.reply_to_message.from_user.id in blacks:
-        await message.reply_text("This user is already blacklisted.")
-        return
-    blacks.append(message.reply_to_message.from_user.id)
-    await message.reply_text(
-        f"Blacklisted {message.reply_to_message.from_user.mention}"
-    )
-
-
-# Unban
-
-
-@app.on_message(
-    filters.command(["white"]) & filters.chat(sudo_chat_id) & ~filters.edited
-)
-async def whitelist(_, message: Message):
-    global blacks
-    if message.from_user.id != owner_id:
-        await message.reply_text("Only owner can whitelist users.")
-        return
-    if not message.reply_to_message:
-        await message.reply_text("Reply to a message to whitelist a user.")
-        return
-    if message.reply_to_message.from_user.id in blacks:
-        blacks.remove(message.reply_to_message.from_user.id)
-        await message.reply_text(
-            f"Whitelisted {message.reply_to_message.from_user.mention}"
-        )
-    else:
-        await message.reply_text("This user is already whitelisted.")
-
-
-# Blacklisted users
-
 
 @app.on_message(
     filters.command(["users"]) & filters.chat(sudo_chat_id) & ~filters.edited
