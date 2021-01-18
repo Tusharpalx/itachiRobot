@@ -34,3 +34,12 @@ spamwatch
 alphabet_detector
 pyrate-limiter
 gtts
+OpenCC
+Pillow
+Pyrogram==1.1.8
+TgCrypto
+youtube_dl==2021.1.3
+requests
+youtube_search
+aiohttp
+aiofiles
