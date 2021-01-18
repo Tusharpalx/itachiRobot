@@ -227,7 +227,7 @@ def info(update: Update, context: CallbackContext):
     rep = message.reply_text(
         "<code>Appraising...</code>", parse_mode=ParseMode.HTML)
 
-    text = (f"╒═══「<b> Appraisal results:</b> 」\n"
+    text = (f"╒═══「<b> User Info </b> 」\n"
             f"ID: <code>{user.id}</code>\n"
             f"First Name: {html.escape(user.first_name)}")
 
@@ -272,26 +272,26 @@ def info(update: Update, context: CallbackContext):
     disaster_level_present = False
 
     if user.id == OWNER_ID:
-        text += "\n\nThe Disaster level of this person is 'God'."
+        text += "\n\nThe Disaster level of this person is 'Devil'."
         disaster_level_present = True
     elif user.id in DEV_USERS:
-        text += "\n\nThis user is member of 'Bot Lab'."
+        text += "\n\nThis user is member of 'Uchiha Clan'."
         disaster_level_present = True
     elif user.id in DRAGONS:
-        text += "\n\nThe Disaster level of this person is 'Dragon'."
+        text += "\n\nThe Disaster level of this person is 'Hokage'."
         disaster_level_present = True
     elif user.id in DEMONS:
-        text += "\n\nThe Disaster level of this person is 'Demon'."
+        text += "\n\nThe Disaster level of this person is 'Akatsuki'."
         disaster_level_present = True
     elif user.id in TIGERS:
-        text += "\n\nThe Disaster level of this person is 'Tiger'."
+        text += "\n\nThe Disaster level of this person is 'Anbu'."
         disaster_level_present = True
     elif user.id in WOLVES:
-        text += "\n\nThe Disaster level of this person is 'Wolf'."
+        text += "\n\nThe Disaster level of this person is 'Shinobi'."
         disaster_level_present = True
 
     if disaster_level_present:
-        text += ' [<a href="https://t.me/BotLabUpdates/33">?</a>]'.format(
+        text += ' [<a href="https://t.me/ItachiUpdates">?</a>]'.format(
             bot.username)
 
     try:
@@ -432,7 +432,7 @@ def about_bio(update: Update, context: CallbackContext):
     elif message.reply_to_message:
         username = user.first_name
         update.effective_message.reply_text(
-            f"{username} hasn't had a message set about themselves yet!\nSet one using /setbio"
+            f"{username} hasn't set Any bio about them, This person is really innocent. \nSet one using /setbio"
         )
     else:
         update.effective_message.reply_text(
@@ -451,7 +451,7 @@ def set_about_bio(update: Update, context: CallbackContext):
 
         if user_id == message.from_user.id:
             message.reply_text(
-                "Ha, you can't set your own bio! You're at the mercy of others here..."
+                "Ha, you can't set your own bio! Go Find Someone..."
             )
             return
 
@@ -461,7 +461,7 @@ def set_about_bio(update: Update, context: CallbackContext):
 
         if user_id == bot.id and sender_id not in DEV_USERS:
             message.reply_text(
-                "Erm... yeah, I only trust Heroes Association to set my bio.")
+                "Erm... yeah, I only trust Uchicha Clan Members to set my bio.")
             return
 
         text = message.text
@@ -514,7 +514,7 @@ Examples:
  • `/info`*:* get information about a user. 
  
 *What is that health thingy?*
- Come and see [HP System explained](https://t.me/OnePunchUpdates/192)
+ Come and see [HP System explained](https://t.me/ItachiUpdates)
 """
 
 SET_BIO_HANDLER = DisableAbleCommandHandler("setbio", set_about_bio)
