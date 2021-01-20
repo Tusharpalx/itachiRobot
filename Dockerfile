@@ -64,11 +64,11 @@ RUN apt update && apt upgrade -y && \
 # Pypi package Repo upgrade
 RUN pip3 install --upgrade pip setuptools
 
-# Copy Python Requirements to /root/SaitamaRobot
+# Copy Python Requirements to /root/ItachiRobot
 RUN git clone -b shiken https://github.com/tusharpalx/ItachiRobot /root/ItachiRobot
 WORKDIR /root/ItachiRobot
 
-#Copy config file to /root/SaitamaRobot/SaitamaRobot
+#Copy config file to /root/ItachiRobot/ItachiRobot
 COPY ./ItachiRobot/sample_config.py ./ItachiRobot/config.py* /root/ItachiRobot/ItachiRobot/
 
 ENV PATH="/home/bot/bin:$PATH"
