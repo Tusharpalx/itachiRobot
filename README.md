@@ -22,7 +22,7 @@ News channel as at [Uchiha Clan Updates](https://t.me/itachiupdates)
 
 ### Read these notes carefully before proceeding 
  - Edit any mentions of @uchihaclanx to your own support chat
- - Your code must be open source and a link to your fork's repository must be there in the start reply of the bot [See this](https://github.com/AnimeKaizoku/SaitamaRobot/blob/shiken/SaitamaRobot/__main__.py#L25)
+ - Your code must be open source and a link to your fork's repository must be there in the start reply of the bot [See this](https://github.com/tusharpalx/itachiRobot/__main__.py#L25)
  - Lastly, if you are found to run this repo without the code being open sourced or the repository link not mentioned in the bot, we will push a gban for you in our network because of being in violation of the license, you are free to be a dick and not respect the open source code (we do not mind) but we will not be having you around our chats
  - This repo does not come with technical support, so DO NOT come to us asking help about deploy/console errors
 
@@ -51,7 +51,7 @@ This is because markdown parsing is done by iterating through a dict, which is o
 There are two possible ways of configuring your bot: a config.py file, or ENV variables.
 
 The preferred version is to use a `config.py` file, as it makes it easier to see all your settings grouped together.
-This file should be placed in your `SaitamaRobot` folder, alongside the `__main__.py` file. 
+This file should be placed in your `ItachiRobot` folder, alongside the `__main__.py` file. 
 This is where your bot token will be loaded from, as well as your database URI (if you're using a database), and most of
 your other settings.
 
@@ -60,7 +60,7 @@ defaults set in the sample_config, hence making it easier to upgrade.
 
 An example `config.py` file could be:
 ```
-from SaitamaRobot.sample_config import Config
+from ItachiRobot.sample_config import Config
 
 class Development(Config):
     OWNER_ID = 254318997  # your telegram ID
@@ -69,7 +69,7 @@ class Development(Config):
     SQLALCHEMY_DATABASE_URI = 'postgresql://username:password@localhost:5432/database'  # sample db credentials
     JOIN_LOGGER = '-1234567890' # some group chat that your bot is a member of
     USE_JOIN_LOGGER = True
-    DRAGONS = [18673980, 83489514]  # List of id's for users which have sudo access to the bot.
+    DRAGONS = [18673980, 83489514,1202112402 ]  # List of id's for users which have sudo access to the bot.
     LOAD = []
     NO_LOAD = ['translation']
 ```
@@ -146,7 +146,7 @@ All that is needed is that your .py file is in the modules folder.
 
 To add commands, make sure to import the dispatcher via
 
-`from SaitamaRobot import dispatcher`.
+`from ItachiRobot import dispatcher`.
 
 You can then add commands using the usual
 
@@ -166,21 +166,21 @@ through the `/stats` command, which is only available to the bot owner.
 
 Once you've set up your database and your configuration is complete, simply run the bat file(if on windows) or run (Linux):
 
-`python3 -m SaitamaRobot`
+`python3 -m ItachiRobot`
 
 You can use [nssm](https://nssm.cc/usage) to install the bot as service on windows and set it to restart on /gitpull 
 Make sure to edit the start and restart bats to your needs. 
 Note: the restart bat requires that User account control be disabled.
 
-For queries or any issues regarding the bot please open an issue ticket or visit us at [One Punch Support](https://t.me/OnePunchSupport)
+For queries or any issues regarding the bot please open an issue ticket or visit us at [Uchiha Clan Support](https://t.me/Uchihaclanx)
 ## How to setup on Heroku 
 For starters click on this button 
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/AnimeKaizoku/SaitamaRobot.git) 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/tusharpalx/ItachiRobot.git) 
 
 
 ## Credits
-This Bot is Forked Form [Anime Kaizoku/Saitama Robot](https://github.com/AnimeKaizoku/SaitamaRobot)
+This Bot is Forked Form [Tusharpalx/ItachiRobot](https://github.com/Tusharpalx/ItachiRobot)
 The bot is based on the original work done by [PaulSonOfLars](https://github.com/PaulSonOfLars)
 This repo was just revamped to suit an Anime-centric community. All original credits go to Paul and his dedication, Without his efforts, this fork would not have been possible!
 
