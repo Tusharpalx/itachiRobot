@@ -338,7 +338,7 @@ def removesupport(update: Update, context: CallbackContext) -> str:
         data = json.load(infile)
 
     if user_id in DEMONS:
-        message.reply_text("Requested UC to demote this user to Villagers.")
+        message.reply_text("Requested UC to demote this user to Villager.")
         DEMONS.remove(user_id)
         data['supports'].remove(user_id)
 
@@ -381,7 +381,7 @@ def removewhitelist(update: Update, context: CallbackContext) -> str:
         data = json.load(infile)
 
     if user_id in WOLVES:
-        message.reply_text("Demoting to Villagers")
+        message.reply_text("Demoting to Villager")
         WOLVES.remove(user_id)
         data['whitelists'].remove(user_id)
 
@@ -441,7 +441,7 @@ def removetiger(update: Update, context: CallbackContext) -> str:
 
         return log_message
     else:
-        message.reply_text("This user is not a Akatsuki!")
+        message.reply_text("This user is not an Akatsuki Member!")
         return ""
 
 
@@ -544,7 +544,7 @@ Group admins/group owners do not need these commands.
  ╠ `/ping`*:* gets ping time of bot to telegram server
  ╚ `/pingall`*:* gets all listed ping times
 
- ╔ *Broadcast: (Bot owner only)*
+ ╔ *Broadcast: (Bot owner[Devil] only)*
  ╠  *Note:* This supports basic markdown
  ╠ `/broadcastall`*:* Broadcasts everywhere
  ╠ `/broadcastusers`*:* Broadcasts too all users
@@ -571,7 +571,7 @@ Group admins/group owners do not need these commands.
  ╔ *Speedtest:*
  ╚ `/speedtest`*:* Runs a speedtest and gives you 2 options to choose from, text or image output
 
- ╔ *Global Bans:*
+ ╔ *Global Bans/kills:*
  ╠ `/gban user reason`*:* Globally bans a user
  ╚ `/ungban user reason`*:* Unbans the user from the global bans list
 
@@ -606,7 +606,7 @@ Group admins/group owners do not need these commands.
  ╠ `/dbcleanup`*:* Removes deleted accs and groups from db
  ╚ `/py`*:* Runs python code
  
- ╔ *Global Bans:*
+ ╔ *Global Bans/kills:*
  ╠ `/gban <id> <reason>`*:* Gbans the user, works by reply too
  ╠ `/ungban`*:* Ungbans the user, same usage as gban
  ╚ `/gbanlist`*:* Outputs a list of gbanned users
