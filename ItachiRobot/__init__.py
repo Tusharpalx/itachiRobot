@@ -45,7 +45,7 @@ if ENV:
         DEV_USERS = set(int(x) for x in os.environ.get("DEV_USERS", "").split())
     except ValueError:
         raise Exception(
-            "Your sudo or dev users list does not contain valid integers.")
+            "Your Hokage or dev users list does not contain valid integers.")
 
     try:
         DEMONS = set(int(x) for x in os.environ.get("DEMONS", "").split())
@@ -57,13 +57,13 @@ if ENV:
         WOLVES = set(int(x) for x in os.environ.get("WOLVES", "").split())
     except ValueError:
         raise Exception(
-            "Your whitelisted users list does not contain valid integers.")
+            "Your whitelisted/shinobi users list does not contain valid integers.")
 
     try:
         TIGERS = set(int(x) for x in os.environ.get("TIGERS", "").split())
     except ValueError:
         raise Exception(
-            "Your tiger users list does not contain valid integers.")
+            "Your Anbu users list does not contain valid integers.")
 
     INFOPIC = bool(os.environ.get('INFOPIC', False))
     EVENT_LOGS = os.environ.get('EVENT_LOGS', None)
@@ -115,7 +115,7 @@ else:
         DEV_USERS = set(int(x) for x in Config.DEV_USERS or [])
     except ValueError:
         raise Exception(
-            "Your sudo or dev users list does not contain valid integers.")
+            "Your Hokage or dev users list does not contain valid integers.")
 
     try:
         DEMONS = set(int(x) for x in Config.DEMONS or [])
@@ -127,13 +127,13 @@ else:
         WOLVES = set(int(x) for x in Config.WOLVES or [])
     except ValueError:
         raise Exception(
-            "Your whitelisted users list does not contain valid integers.")
+            "Your whitelisted/shinobi users list does not contain valid integers.")
 
     try:
         TIGERS = set(int(x) for x in Config.TIGERS or [])
     except ValueError:
         raise Exception(
-            "Your tiger users list does not contain valid integers.")
+            "Your Anbu users list does not contain valid integers.")
 
     EVENT_LOGS = Config.EVENT_LOGS
     WEBHOOK = Config.WEBHOOK
@@ -198,7 +198,7 @@ else:
     sw = spamwatch.Client(SPAMWATCH_API)
 
 updater = tg.Updater(TOKEN, workers=WORKERS, use_context=True)
-telethn = TelegramClient("saitama", API_ID, API_HASH)
+telethn = TelegramClient("Itachi", API_ID, API_HASH)
 dispatcher = updater.dispatcher
 
 DRAGONS = list(DRAGONS) + list(DEV_USERS)

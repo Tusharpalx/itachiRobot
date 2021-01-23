@@ -52,7 +52,7 @@ def get_readable_time(seconds: int) -> str:
 
 PM_START_TEXT = """
 Hi {}, my name is {}! 
-I am Itachi an Anime Naruto ナルト Theme Bot.I can Manage your group with my super cool jutsu's.Tap on /help to know more about my jutsu's.  [Repo](https://github.com/tusharpalx/itachiRobot)
+I am Itachi an Anime Naruto ナルト Theme Bot.I can Manage your group with my super cool jutsu's.Tap on /help to know more about my jutsu's. 
 """
 
 HELP_STRINGS = """
@@ -203,21 +203,21 @@ def start(update: Update, context: CallbackContext):
                     ],
                      [
                          InlineKeyboardButton(
-                             text="🚑 Support Group",
+                             text="☢️ Support Group",
                              url=f"https://t.me/{SUPPORT_CHAT}"),
                          InlineKeyboardButton(
-                             text="🔔 Updates Channel",
+                             text="📡 Updatess Channel",
                              url="https://t.me/itachiUpdates")
                      ],
                      [
                          InlineKeyboardButton(
-                            text="Source Code",
+                            text="🔗 sourcee Code",
                             url="https://github.com/tusharpalx/itachiRobot")
                      ]]))
             
     else:
         update.effective_message.reply_text(
-            "I'm awake already!\n<b>Haven't slept since:</b> <code>{}</code>"
+            "I'm dead already!\n<b>Haven't slept since:</b> <code>{}</code>"
             .format(uptime),
             parse_mode=ParseMode.HTML)
 
@@ -228,11 +228,11 @@ def error_callback(update: Update, context: CallbackContext):
     try:
         raise error
     except Unauthorized:
-        print("no nono1")
+        print("no, oh no, no no no no....")
         print(error)
         # remove update.message.chat_id from conversation list
     except BadRequest:
-        print("no nono2")
+        print("no, Oh no, nano.")
         print("BadRequest caught")
         print(error)
 
@@ -265,7 +265,7 @@ def help_button(update, context):
     try:
         if mod_match:
             module = mod_match.group(1)
-            text = ("Here is the help for the *{}* module:\n".format(
+            text = ("Help for the *{}* module:\n".format(
                 HELPABLE[module].__mod_name__) + HELPABLE[module].__help__)
             query.message.edit_text(
                 text=text,
@@ -535,7 +535,7 @@ def main():
 
     if SUPPORT_CHAT is not None and isinstance(SUPPORT_CHAT, str):
         try:
-            dispatcher.bot.sendMessage(f"@{SUPPORT_CHAT}", "I am now online!")
+            dispatcher.bot.sendMessage(f"@{SUPPORT_CHAT}", "I'M Ready For Battle!")
         except Unauthorized:
             LOGGER.warning(
                 "Bot isnt able to send message to support_chat, go and check!")
