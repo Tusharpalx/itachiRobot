@@ -1,9 +1,9 @@
 import threading
 
-from ItachiRobot.modules.sql import BASE, SESSION
-from sqlalchemy import (Boolean, Column, Integer, String, UnicodeText, distinct,
-                        func)
+from sqlalchemy import Integer, Column, String, UnicodeText, func, distinct, Boolean
 from sqlalchemy.dialects import postgresql
+
+from ItachiRobot.modules.sql import SESSION, BASE
 
 
 class Warns(BASE):
@@ -22,7 +22,8 @@ class Warns(BASE):
 
     def __repr__(self):
         return "<{} warns for {} in {} for reasons {}>".format(
-            self.num_warns, self.user_id, self.chat_id, self.reasons)
+            self.num_warns, self.user_id, self.chat_id, self.reasons
+        )
 
 
 class WarnFilters(BASE):
@@ -41,8 +42,10 @@ class WarnFilters(BASE):
 
     def __eq__(self, other):
         return bool(
-            isinstance(other, WarnFilters) and self.chat_id == other.chat_id and
-            self.keyword == other.keyword)
+            isinstance(other, WarnFilters)
+            and self.chat_id == other.chat_id
+            and self.keyword == other.keyword
+        )
 
 
 class WarnSettings(BASE):
@@ -57,8 +60,7 @@ class WarnSettings(BASE):
         self.soft_warn = soft_warn
 
     def __repr__(self):
-        return "<{} has {} possible warns.>".format(self.chat_id,
-                                                    self.warn_limit)
+        return "<{} has {} possible warns.>".format(self.chat_id, self.warn_limit)
 
 
 Warns.__table__.create(checkfirst=True)
@@ -79,10 +81,17 @@ def warn_user(user_id, chat_id, reason=None):
             warned_user = Warns(user_id, str(chat_id))
 
         warned_user.num_warns += 1
+
+        if reason == "":
+            reason = "No reason given."
+
         if reason:
-            warned_user.reasons = warned_user.reasons + [
-                reason
-            ]  # TODO:: double check this wizardry
+            if warned_user.reasons is None:
+                warned_user.reasons = [reason]
+            else:
+                warned_user.reasons = warned_user.reasons + [
+                    reason
+                ]  # TODO:: double check this Daan: Not really wizardry, it adds a new entry to a list/array which can be done this way, basically append equivalent
 
         reasons = warned_user.reasons
         num = warned_user.num_warns
@@ -97,10 +106,18 @@ def remove_warn(user_id, chat_id):
     with WARN_INSERTION_LOCK:
         removed = False
         warned_user = SESSION.query(Warns).get((user_id, str(chat_id)))
+        temp_reason = []
 
         if warned_user and warned_user.num_warns > 0:
             warned_user.num_warns -= 1
-            warned_user.reasons = warned_user.reasons[:-1]
+
+            if warned_user and warned_user.reasons is not None:
+                pos = len(warned_user.reasons)
+                for reason in warned_user.reasons:
+                    temp_reason.append(reason)
+                del temp_reason[-1]
+                warned_user.reasons = temp_reason
+
             SESSION.add(warned_user)
             SESSION.commit()
             removed = True
@@ -140,7 +157,8 @@ def add_warn_filter(chat_id, keyword, reply):
         if keyword not in WARN_FILTERS.get(str(chat_id), []):
             WARN_FILTERS[str(chat_id)] = sorted(
                 WARN_FILTERS.get(str(chat_id), []) + [keyword],
-                key=lambda x: (-len(x), x))
+                key=lambda x: (-len(x), x),
+            )
 
         SESSION.merge(warn_filt)  # merge to avoid duplicate key issues
         SESSION.commit()
@@ -166,8 +184,9 @@ def get_chat_warn_triggers(chat_id):
 
 def get_chat_warn_filters(chat_id):
     try:
-        return SESSION.query(WarnFilters).filter(
-            WarnFilters.chat_id == str(chat_id)).all()
+        return (
+            SESSION.query(WarnFilters).filter(WarnFilters.chat_id == str(chat_id)).all()
+        )
     finally:
         SESSION.close()
 
@@ -238,8 +257,11 @@ def num_warn_filters():
 
 def num_warn_chat_filters(chat_id):
     try:
-        return SESSION.query(WarnFilters.chat_id).filter(
-            WarnFilters.chat_id == str(chat_id)).count()
+        return (
+            SESSION.query(WarnFilters.chat_id)
+            .filter(WarnFilters.chat_id == str(chat_id))
+            .count()
+        )
     finally:
         SESSION.close()
 
@@ -273,26 +295,31 @@ def __load_chat_warn_filters():
 
 def migrate_chat(old_chat_id, new_chat_id):
     with WARN_INSERTION_LOCK:
-        chat_notes = SESSION.query(Warns).filter(
-            Warns.chat_id == str(old_chat_id)).all()
+        chat_notes = (
+            SESSION.query(Warns).filter(Warns.chat_id == str(old_chat_id)).all()
+        )
         for note in chat_notes:
             note.chat_id = str(new_chat_id)
         SESSION.commit()
 
     with WARN_FILTER_INSERTION_LOCK:
-        chat_filters = SESSION.query(WarnFilters).filter(
-            WarnFilters.chat_id == str(old_chat_id)).all()
+        chat_filters = (
+            SESSION.query(WarnFilters)
+            .filter(WarnFilters.chat_id == str(old_chat_id))
+            .all()
+        )
         for filt in chat_filters:
             filt.chat_id = str(new_chat_id)
         SESSION.commit()
-        old_warn_filt = WARN_FILTERS.get(str(old_chat_id))
-        if old_warn_filt is not None:
-            WARN_FILTERS[str(new_chat_id)] = old_warn_filt
-            del WARN_FILTERS[str(old_chat_id)]
+        WARN_FILTERS[str(new_chat_id)] = WARN_FILTERS[str(old_chat_id)]
+        del WARN_FILTERS[str(old_chat_id)]
 
     with WARN_SETTINGS_LOCK:
-        chat_settings = SESSION.query(WarnSettings).filter(
-            WarnSettings.chat_id == str(old_chat_id)).all()
+        chat_settings = (
+            SESSION.query(WarnSettings)
+            .filter(WarnSettings.chat_id == str(old_chat_id))
+            .all()
+        )
         for setting in chat_settings:
             setting.chat_id = str(new_chat_id)
         SESSION.commit()
