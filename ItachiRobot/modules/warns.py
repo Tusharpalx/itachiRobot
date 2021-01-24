@@ -42,19 +42,19 @@ def warn(user: User,
 
     if user.id in TIGERS:
         if warner:
-            message.reply_text("Tigers cant be warned.")
+            message.reply_text("Anbu cant be warned.")
         else:
             message.reply_text(
-                "Tiger triggered an auto warn filter!\n I can't warn tigers but they should avoid abusing this."
+                "Anbu triggered an auto warn filter!\n I can't warn Anbu Members but they should avoid abusing this."
             )
         return
 
     if user.id in WOLVES:
         if warner:
-            message.reply_text("Wolf disasters are warn immune.")
+            message.reply_text("Shinobi are warn immune.")
         else:
             message.reply_text(
-                "Wolf Disaster triggered an auto warn filter!\nI can't warn wolves but they should avoid abusing this."
+                "Shinobi triggered an auto warn filter!\nI can't warn Shinobi Members but they should avoid abusing this."
             )
         return
 
@@ -404,7 +404,7 @@ def set_warn_strength(update: Update, context: CallbackContext):
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-                f"Has enabled strong warns. Users will be seriously punched.(banned)"
+                f"Has enabled strong warns. Users will be banned"
             )
 
         elif args[0].lower() in ("off", "no"):
@@ -473,7 +473,7 @@ be a sentence, encompass it with quotes, as such: `/addwarn "very angry" This is
  • `/strongwarn <on/yes/off/no>`*:* If set to on, exceeding the warn limit will result in a ban. Else, will just punch.
 """
 
-__mod_name__ = "Warnings"
+__mod_name__ = "Warns"
 
 WARN_HANDLER = CommandHandler("warn", warn_user, filters=Filters.group)
 RESET_WARN_HANDLER = CommandHandler(["resetwarn", "resetwarns"],
