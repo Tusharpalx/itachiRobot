@@ -204,6 +204,25 @@ def warn_user(update, context):
             return warn(chat.get_member(user_id).user, chat, reason, message, warner)
     else:
         message.reply_text("No user was designated!")
+
+     if user.id in TIGERS:
+        if warner:
+            message.reply_text("Tigers cant be warned.")
+        else:
+            message.reply_text(
+                "Tiger triggered an auto warn filter!\n I can't warn tigers but they should avoid abusing this."
+            )
+        return
+
+    if user.id in WOLVES:
+        if warner:
+            message.reply_text("Wolf disasters are warn immune.")
+        else:
+            message.reply_text(
+                "Wolf Disaster triggered an auto warn filter!\nI can't warn wolves but they should avoid abusing this."
+            )
+        return
+
     return ""
 
 
