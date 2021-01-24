@@ -6,7 +6,6 @@ import telegram
 from ItachiRobot import BAN_STICKER, TIGERS, WOLVES, dispatcher, REDIS
 from ItachiRobot.modules.disable import DisableAbleCommandHandler
 from ItachiRobot.modules.helper_funcs.chat_status import (bot_admin,
-                                                           typing_action,
                                                            can_restrict,
                                                            is_user_admin,
                                                            user_admin,
@@ -16,6 +15,7 @@ from ItachiRobot.modules.helper_funcs.extraction import (extract_text,
                                                           extract_user_and_text)
 from ItachiRobot.modules.helper_funcs.filters import CustomFilters
 from ItachiRobot.modules.helper_funcs.misc import split_message
+from ItachiRobot.modules.helper_funcs.alternate import typing_action
 from ItachiRobot.modules.helper_funcs.string_handling import split_quotes
 from ItachiRobot.modules.log_channel import loggable
 from ItachiRobot.modules.sql import warns_sql as sql
