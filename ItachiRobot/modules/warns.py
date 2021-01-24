@@ -6,6 +6,7 @@ import telegram
 from ItachiRobot import BAN_STICKER, TIGERS, WOLVES, dispatcher, REDIS
 from ItachiRobot.modules.disable import DisableAbleCommandHandler
 from ItachiRobot.modules.helper_funcs.chat_status import (bot_admin,
+                                                           typing_action,
                                                            can_restrict,
                                                            is_user_admin,
                                                            user_admin,
