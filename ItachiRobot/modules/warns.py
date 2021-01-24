@@ -3,7 +3,7 @@ import re
 from typing import Optional
 
 import telegram
-from ItachiRobot import TIGERS, WOLVES, dispatcher
+from ItachiRobot import BAN_STICKER, TIGERS, WOLVES, dispatcher, REDIS
 from ItachiRobot.modules.disable import DisableAbleCommandHandler
 from ItachiRobot.modules.helper_funcs.chat_status import (bot_admin,
                                                            can_restrict,
@@ -42,19 +42,19 @@ def warn(user: User,
 
     if user.id in TIGERS:
         if warner:
-            message.reply_text("Anbu cant be warned.")
+            message.reply_text("Tigers cant be warned.")
         else:
             message.reply_text(
-                "Anbu triggered an auto warn filter!\n I can't warn Anbu Members but they should avoid abusing this."
+                "Tiger triggered an auto warn filter!\n I can't warn tigers but they should avoid abusing this."
             )
         return
 
     if user.id in WOLVES:
         if warner:
-            message.reply_text("Shinobi are warn immune.")
+            message.reply_text("Wolf disasters are warn immune.")
         else:
             message.reply_text(
-                "Shinobi triggered an auto warn filter!\nI can't warn Shinobi Members but they should avoid abusing this."
+                "Wolf Disaster triggered an auto warn filter!\nI can't warn wolves but they should avoid abusing this."
             )
         return
 
@@ -338,6 +338,14 @@ def reply_filter(update: Update, context: CallbackContext) -> str:
     chat: Optional[Chat] = update.effective_chat
     message: Optional[Message] = update.effective_message
     user: Optional[User] = update.effective_user
+      
+      
+    chat_id = str(chat.id)[1:] 
+    approve_list = list(REDIS.sunion(f'approve_list_{chat_id}'))
+    target_user = mention_html(user.id, user.first_name)
+    if target_user in approve_list:
+        return
+
 
     if not user:  #Ignore channel
         return
@@ -404,7 +412,7 @@ def set_warn_strength(update: Update, context: CallbackContext):
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-                f"Has enabled strong warns. Users will be banned"
+                f"Has enabled strong warns. Users will be seriously punched.(banned)"
             )
 
         elif args[0].lower() in ("off", "no"):
