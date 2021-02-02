@@ -1,9 +1,8 @@
 import threading
 
-from sqlalchemy import Integer, Column, String, UnicodeText, func, distinct, Boolean
+from ItachiRobot.modules.sql import BASE, SESSION
+from sqlalchemy import Boolean, Column, Integer, String, UnicodeText, distinct, func
 from sqlalchemy.dialects import postgresql
-
-from ItachiRobot.modules.sql import SESSION, BASE
 
 
 class Warns(BASE):
@@ -81,17 +80,10 @@ def warn_user(user_id, chat_id, reason=None):
             warned_user = Warns(user_id, str(chat_id))
 
         warned_user.num_warns += 1
-
-        if reason == "":
-            reason = "No reason given."
-
         if reason:
-            if warned_user.reasons is None:
-                warned_user.reasons = [reason]
-            else:
-                warned_user.reasons = warned_user.reasons + [
-                    reason
-                ]  # TODO:: double check this Daan: Not really wizardry, it adds a new entry to a list/array which can be done this way, basically append equivalent
+            warned_user.reasons = warned_user.reasons + [
+                reason
+            ]  # TODO:: double check this wizardry
 
         reasons = warned_user.reasons
         num = warned_user.num_warns
@@ -106,18 +98,10 @@ def remove_warn(user_id, chat_id):
     with WARN_INSERTION_LOCK:
         removed = False
         warned_user = SESSION.query(Warns).get((user_id, str(chat_id)))
-        temp_reason = []
 
         if warned_user and warned_user.num_warns > 0:
             warned_user.num_warns -= 1
-
-            if warned_user and warned_user.reasons is not None:
-                pos = len(warned_user.reasons)
-                for reason in warned_user.reasons:
-                    temp_reason.append(reason)
-                del temp_reason[-1]
-                warned_user.reasons = temp_reason
-
+            warned_user.reasons = warned_user.reasons[:-1]
             SESSION.add(warned_user)
             SESSION.commit()
             removed = True
@@ -311,8 +295,10 @@ def migrate_chat(old_chat_id, new_chat_id):
         for filt in chat_filters:
             filt.chat_id = str(new_chat_id)
         SESSION.commit()
-        WARN_FILTERS[str(new_chat_id)] = WARN_FILTERS[str(old_chat_id)]
-        del WARN_FILTERS[str(old_chat_id)]
+        old_warn_filt = WARN_FILTERS.get(str(old_chat_id))
+        if old_warn_filt is not None:
+            WARN_FILTERS[str(new_chat_id)] = old_warn_filt
+            del WARN_FILTERS[str(old_chat_id)]
 
     with WARN_SETTINGS_LOCK:
         chat_settings = (
