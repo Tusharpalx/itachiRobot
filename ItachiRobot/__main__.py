@@ -51,19 +51,20 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
-Hi {}, my name is {}! 
-I am Itachi an Anime Naruto ナルト Theme Bot.I can Manage your group with my super cool jutsu's.Tap on /help to know more about my jutsu's. 
+──「 Hi {}, my name is {}! 」──
+──「 I am Itachi an Anime Naruto ナルト Theme Bot. 」──
+I can Manage your group with my super cool jutsu's.Tap on /help to know more about my jutsu's. 
 """
 
 HELP_STRINGS = """
-Hey Wanderer! I am *{}*.
+──「 Hey Wanderer! I am *{}*.  」──
  From konoha Village. Add me In your Groups so a Uchicha can protect you. btw i am stronger than Madara.
 
 *Main* commands available:
- • /help: PM's you this message.
- • /help <module name>: PM's you info about that module.
- • /donate: information on how to donate!
- • /settings:
+ ─ /help: PM's you this message.
+ ─ /help <module name>: PM's you info about that module.
+ ─ /donate: information on how to donate!
+ ─ /settings:
    • in PM: will send you your settings for all supported modules.
    • in a group: will redirect you to pm, with all that chat's settings.
 
@@ -76,7 +77,7 @@ And the following:
 
 SAITAMA_IMG = "https://telegra.ph/file/a61b944b57a1b1590fb87.jpg"
 
-DONATE_STRING = """Heya, glad to hear you want to donate!
+DONATE_STRING = """──「 Heya, glad to hear you want to donate 」──
 itachi is hosted on free database so ofcourse we need donation to improve our power of bot.
 there is some links so you can donate us:-
  [PayPal](paypal.me/tusharpal4)."""
@@ -265,7 +266,7 @@ def help_button(update, context):
     try:
         if mod_match:
             module = mod_match.group(1)
-            text = ("Help for the *{}* module:\n".format(
+            text = ("──「 Help for the *{}* module:\n 」──".format(
                 HELPABLE[module].__mod_name__) + HELPABLE[module].__help__)
             query.message.edit_text(
                 text=text,
