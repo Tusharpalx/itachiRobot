@@ -77,7 +77,7 @@ And the following:
 
 SAITAMA_IMG = "https://telegra.ph/file/a61b944b57a1b1590fb87.jpg"
 
-DONATE_STRING = """──「 Heya, glad to hear you want to donate 」──
+DONATE_STRING = """──「 Heya, glad to hear you want to donate! 」──
 itachi is hosted on free database so ofcourse we need donation to improve our power of bot.
 there is some links so you can donate us:-
  [PayPal](paypal.me/tusharpal4)."""
