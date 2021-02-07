@@ -242,6 +242,7 @@ __mod_name__ = "Tagger"
 
 __help__ = """ 
 Tagger is an essential feature to mention all subscribed members in the group. Any chat members can subscribe to tagger.
+
 • /tagme: registers to the chat tag list.
 • /untagme: unsubscribes from the chat tag list.
 *Admin only:*
