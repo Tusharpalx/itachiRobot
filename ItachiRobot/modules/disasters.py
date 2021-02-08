@@ -625,12 +625,12 @@ UNTIGER_HANDLER = CommandHandler(("removetiger"), removetiger)
 UNWHITELIST_HANDLER = CommandHandler(("removewhitelist", "removewolf"),
                                      removewhitelist)
 
-WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "wolves"],
+WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "shinobis"],
                                        whitelistlist)
-TIGERLIST_HANDLER = CommandHandler(["tigers"], tigerlist)
-SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "demons"], supportlist)
-SUDOLIST_HANDLER = CommandHandler(["sudolist", "dragons"], sudolist)
-DEVLIST_HANDLER = CommandHandler(["devlist", "heroes"], devlist)
+TIGERLIST_HANDLER = CommandHandler(["anbus"], tigerlist)
+SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "akatsuki"], supportlist)
+SUDOLIST_HANDLER = CommandHandler(["sudolist", "hokages"], sudolist)
+DEVLIST_HANDLER = CommandHandler(["devlist", "uchihas"], devlist)
 
 dispatcher.add_handler(SUDO_HANDLER)
 dispatcher.add_handler(SUPPORT_HANDLER)
