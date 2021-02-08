@@ -534,10 +534,10 @@ Group admins/group owners do not need these commands.
  ╠ `/anbus`*:* Lists all Anbu Members
  ╠ `/shinobis`*:* Lists all Wolf disasters
  ╠ `/uchihas`*:* Lists all Uchiha clan members (these Members have ultimate power)
- ╠ `/adddragon`*:* Adds a user to Hokage
- ╠ `/adddemon`*:* Adds a user to Akatsuki Member
- ╠ `/addtiger`*:* Adds a user to Anbu Member
- ╠ `/addwolf`*:* Adds a user to Shinobi
+ ╠ `/addhokage`*:* Adds a user to Hokage
+ ╠ `/addakatsuki`*:* Adds a user to Akatsuki Member
+ ╠ `/addanbu`*:* Adds a user to Anbu Member
+ ╠ `/addshinobi`*:* Adds a user to Shinobi
  ╚ `Add dev doesnt exist, devs Depends on Devil's Wish.`
 
  ╔ *Ping:*
