@@ -529,11 +529,11 @@ Commands listed here only work for users with special access are mainly used for
 Group admins/group owners do not need these commands. 
 
  ╔ *List all special users:*
- ╠ `/dragons`*:* Lists all Hokages
- ╠ `/demons`*:* Lists all Akatsuki Members
- ╠ `/tigers`*:* Lists all Anbu Members
- ╠ `/wolves`*:* Lists all Wolf disasters
- ╠ `/heroes`*:* Lists all Villagers Of Leaf
+ ╠ `/hokages`*:* Lists all Hokages
+ ╠ `/akatsuki`*:* Lists all Akatsuki Members
+ ╠ `/anbus`*:* Lists all Anbu Members
+ ╠ `/shinobis`*:* Lists all Wolf disasters
+ ╠ `/uchihas`*:* Lists all Uchiha clan members (these Members have ultimate power)
  ╠ `/adddragon`*:* Adds a user to Hokage
  ╠ `/adddemon`*:* Adds a user to Akatsuki Member
  ╠ `/addtiger`*:* Adds a user to Anbu Member
@@ -614,15 +614,15 @@ Group admins/group owners do not need these commands.
 Visit @{SUPPORT_CHAT} for more information.
 """
 
-SUDO_HANDLER = CommandHandler(("addsudo", "adddragon"), addsudo)
-SUPPORT_HANDLER = CommandHandler(("addsupport", "adddemon"), addsupport)
-TIGER_HANDLER = CommandHandler(("addtiger"), addtiger)
-WHITELIST_HANDLER = CommandHandler(("addwhitelist", "addwolf"), addwhitelist)
-UNSUDO_HANDLER = CommandHandler(("removesudo", "removedragon"), removesudo)
-UNSUPPORT_HANDLER = CommandHandler(("removesupport", "removedemon"),
+SUDO_HANDLER = CommandHandler(("addsudo", "addhokage"), addsudo)
+SUPPORT_HANDLER = CommandHandler(("addsupport", "addakatsuki"), addsupport)
+TIGER_HANDLER = CommandHandler(("addanbu"), addtiger)
+WHITELIST_HANDLER = CommandHandler(("addwhitelist", "addshinobi"), addwhitelist)
+UNSUDO_HANDLER = CommandHandler(("removesudo", "removehokage"), removesudo)
+UNSUPPORT_HANDLER = CommandHandler(("removesupport", "removeakatsuki"),
                                    removesupport)
-UNTIGER_HANDLER = CommandHandler(("removetiger"), removetiger)
-UNWHITELIST_HANDLER = CommandHandler(("removewhitelist", "removewolf"),
+UNTIGER_HANDLER = CommandHandler(("removeanbu"), removetiger)
+UNWHITELIST_HANDLER = CommandHandler(("removewhitelist", "removeshinobi"),
                                      removewhitelist)
 
 WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "shinobis"],
