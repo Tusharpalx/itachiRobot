@@ -529,15 +529,15 @@ Commands listed here only work for users with special access are mainly used for
 Group admins/group owners do not need these commands. 
 
  ╔ *List all special users:*
- ╠ `/dragons`*:* Lists all Hokages
- ╠ `/demons`*:* Lists all Akatsuki Members
- ╠ `/tigers`*:* Lists all Anbu Members
- ╠ `/wolves`*:* Lists all Wolf disasters
- ╠ `/heroes`*:* Lists all Villagers Of Leaf
- ╠ `/adddragon`*:* Adds a user to Hokage
- ╠ `/adddemon`*:* Adds a user to Akatsuki Member
- ╠ `/addtiger`*:* Adds a user to Anbu Member
- ╠ `/addwolf`*:* Adds a user to Shinobi
+ ╠ `/hokages`*:* Lists all Hokages
+ ╠ `/akatsuki`*:* Lists all Akatsuki Members
+ ╠ `/anbus`*:* Lists all Anbu Members
+ ╠ `/shinobis`*:* Lists all Wolf disasters
+ ╠ `/uchihas`*:* Lists all Uchiha clan members (these Members have ultimate power)
+ ╠ `/addhokage`*:* Adds a user to Hokage
+ ╠ `/addakatsuki`*:* Adds a user to Akatsuki Member
+ ╠ `/addanbu`*:* Adds a user to Anbu Member
+ ╠ `/addshinobi`*:* Adds a user to Shinobi
  ╚ `Add dev doesnt exist, devs Depends on Devil's Wish.`
 
  ╔ *Ping:*
@@ -614,23 +614,23 @@ Group admins/group owners do not need these commands.
 Visit @{SUPPORT_CHAT} for more information.
 """
 
-SUDO_HANDLER = CommandHandler(("addsudo", "adddragon"), addsudo)
-SUPPORT_HANDLER = CommandHandler(("addsupport", "adddemon"), addsupport)
-TIGER_HANDLER = CommandHandler(("addtiger"), addtiger)
-WHITELIST_HANDLER = CommandHandler(("addwhitelist", "addwolf"), addwhitelist)
-UNSUDO_HANDLER = CommandHandler(("removesudo", "removedragon"), removesudo)
-UNSUPPORT_HANDLER = CommandHandler(("removesupport", "removedemon"),
+SUDO_HANDLER = CommandHandler(("addsudo", "addhokage"), addsudo)
+SUPPORT_HANDLER = CommandHandler(("addsupport", "addakatsuki"), addsupport)
+TIGER_HANDLER = CommandHandler(("addanbu"), addtiger)
+WHITELIST_HANDLER = CommandHandler(("addwhitelist", "addshinobi"), addwhitelist)
+UNSUDO_HANDLER = CommandHandler(("removesudo", "removehokage"), removesudo)
+UNSUPPORT_HANDLER = CommandHandler(("removesupport", "removeakatsuki"),
                                    removesupport)
-UNTIGER_HANDLER = CommandHandler(("removetiger"), removetiger)
-UNWHITELIST_HANDLER = CommandHandler(("removewhitelist", "removewolf"),
+UNTIGER_HANDLER = CommandHandler(("removeanbu"), removetiger)
+UNWHITELIST_HANDLER = CommandHandler(("removewhitelist", "removeshinobi"),
                                      removewhitelist)
 
-WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "wolves"],
+WHITELISTLIST_HANDLER = CommandHandler(["whitelistlist", "shinobis"],
                                        whitelistlist)
-TIGERLIST_HANDLER = CommandHandler(["tigers"], tigerlist)
-SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "demons"], supportlist)
-SUDOLIST_HANDLER = CommandHandler(["sudolist", "dragons"], sudolist)
-DEVLIST_HANDLER = CommandHandler(["devlist", "heroes"], devlist)
+TIGERLIST_HANDLER = CommandHandler(["anbus"], tigerlist)
+SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "akatsuki"], supportlist)
+SUDOLIST_HANDLER = CommandHandler(["sudolist", "hokages"], sudolist)
+DEVLIST_HANDLER = CommandHandler(["devlist", "uchihas"], devlist)
 
 dispatcher.add_handler(SUDO_HANDLER)
 dispatcher.add_handler(SUPPORT_HANDLER)
