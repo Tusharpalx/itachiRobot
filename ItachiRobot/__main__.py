@@ -206,12 +206,12 @@ def start(update: Update, context: CallbackContext):
                              text="☢️ Support Group",
                              url=f"https://t.me/{SUPPORT_CHAT}"),
                          InlineKeyboardButton(
-                             text="📡 Updatess Channel",
+                             text="📡 Updates Channel",
                              url="https://t.me/itachiUpdates")
                      ],
                      [
                          InlineKeyboardButton(
-                            text="🔗 sourcee Code",
+                            text="🔗 Source Code",
                             url="https://github.com/tusharpalx/itachiRobot")
                      ]]))
             
