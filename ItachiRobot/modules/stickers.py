@@ -40,7 +40,7 @@ def stickerid(update: Update, context: CallbackContext):
 
 
 @run_async
-def kang(update, context):
+def kang(update: Update, context: CallbackContext):
     msg = update.effective_message
     user = update.effective_user
     args = context.args
@@ -96,13 +96,8 @@ def kang(update, context):
         elif msg.reply_to_message.sticker and msg.reply_to_message.sticker.emoji:
             sticker_emoji = msg.reply_to_message.sticker.emoji
         else:
-            sticker_emoji = "🙂"
-        
-        adding_process = msg.reply_text(
-                    "<b>Your sticker will be added in few seconds, please wait...</b>",
-                    parse_mode=ParseMode.HTML
-                    )
-        
+            sticker_emoji = "🤔"
+
         if not is_animated:
             try:
                 im = Image.open(kangsticker)
