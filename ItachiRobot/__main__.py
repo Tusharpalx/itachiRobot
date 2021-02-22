@@ -338,7 +338,11 @@ def get_help(update: Update, context: CallbackContext):
         module = args[1].lower()
         text = "Here is the available help for the *{}* module:\n".format(HELPABLE[module].__mod_name__) \
                + HELPABLE[module].__help__
-        send_help(chat.id, text, InlineKeyboardMarkup([[InlineKeyboardButton(text="Back", callback_data="help_back")]]))
+        send_help(
+            chat.id, text,
+            InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="Back",
+                                       callback_data="help_back")]]))
 
     else:
         send_help(chat.id, HELP_STRINGS)
