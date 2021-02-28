@@ -12,6 +12,7 @@ from telegram.error import BadRequest
 
 
 @loggable
+@bot_admin
 @user_admin
 @run_async
 def approve(update, context):
