@@ -4,7 +4,10 @@ from ItachiRobot import dispatcher, DRAGONS
 from ItachiRobot.modules.helper_funcs.extraction import extract_user
 from telegram.ext import CallbackContext, run_async, CallbackQueryHandler
 import ItachiRobot.modules.sql.approve_sql as sql
-from ItachiRobot.modules.helper_funcs.chat_status import user_admin
+from SaitamaRobot.modules.helper_funcs.chat_status import (
+    bot_admin,
+    user_admin
+)
 from ItachiRobot.modules.log_channel import loggable
 from telegram import ParseMode, InlineKeyboardMarkup, InlineKeyboardButton, Update
 from telegram.utils.helpers import mention_html
@@ -12,6 +15,7 @@ from telegram.error import BadRequest
 
 
 @loggable
+@bot_admin
 @user_admin
 @run_async
 def approve(update, context):
@@ -55,7 +59,7 @@ def approve(update, context):
 
     return log_message
 
-
+@bot_admin
 @loggable
 @user_admin
 @run_async
