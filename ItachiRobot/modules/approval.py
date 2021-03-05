@@ -4,7 +4,7 @@ from ItachiRobot import dispatcher, DRAGONS
 from ItachiRobot.modules.helper_funcs.extraction import extract_user
 from telegram.ext import CallbackContext, run_async, CallbackQueryHandler
 import ItachiRobot.modules.sql.approve_sql as sql
-from SaitamaRobot.modules.helper_funcs.chat_status import (
+from ItachiRobot.modules.helper_funcs.chat_status import (
     bot_admin,
     user_admin
 )
