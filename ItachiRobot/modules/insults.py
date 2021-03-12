@@ -1,4 +1,3 @@
-  
 import html
 import random
 import ItachiRobot.modules.insults_string as insults_string
