@@ -8,7 +8,7 @@ from ItachiRobot.modules.disable import DisableAbleCommandHandler
 from telegram.ext import CallbackContext, run_async
 
 @run_async
-def insults(update: Update, context: CallbackContext):
+def insult(update: Update, context: CallbackContext):
     args = context.args
     update.effective_message.reply_text(random.choice(insults_string.INSULT))
 
