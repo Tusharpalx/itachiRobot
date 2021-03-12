@@ -9,7 +9,7 @@ from telegram.ext import CallbackContext, run_async
 @run_async
 def insult(update: Update, context: CallbackContext):
     args = context.args
-    await check_and_send(message, choice(INSULT_STRINGS), parse_mode="html")
+    update.check_and_send(message, choice(INSULT_STRINGS), parse_mode="html")
 
 INSULT_HANDLER = DisableAbleCommandHandler("insult", insult)
 
