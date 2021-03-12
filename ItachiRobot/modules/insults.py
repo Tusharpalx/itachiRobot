@@ -15,4 +15,3 @@ def insult(update: Update, context: CallbackContext):
 INSULT_HANDLER = DisableAbleCommandHandler("insult", insult)
 
 dispatcher.add_handler(INSULT_HANDLER)
-dispatcher.add_handler(DARE_HANDLER)
