@@ -500,7 +500,7 @@ def makepack_internal(
                 "\n\nYou can now reply to images, stickers and animated sticker with /steal to add them to your pack"
                 "\n\n<b>Send /stickers to find sticker pack.</b>",
                 reply_markup=keyboard,
-                parse_mode=ParseMode.HTML
+                parse_mode=ParseMode.MARKDOWN
             )
         return
 
@@ -510,7 +510,7 @@ def makepack_internal(
                 "\n\nYou can now reply to images, stickers and animated sticker with /steal to add them to your pack"
                 "\n\n<b>Send /stickers to find sticker pack.</b>",
                 reply_markup=keyboard,
-                parse_mode=ParseMode.HTML
+                parse_mode=ParseMode.MARKDOWN
             )
     else:
         msg.reply_text("Failed to create sticker pack. Possibly due to blek mejik.")
