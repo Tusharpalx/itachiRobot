@@ -496,18 +496,22 @@ def makepack_internal(
             )
         elif e.message == "Internal Server Error: created sticker set not found (500)":
             msg.reply_text(
-                "Sticker pack successfully created. Get it [here](t.me/addstickers/%s)"
-                % packname,
-                parse_mode=ParseMode.MARKDOWN,
+                "<b>Your Sticker Pack has been created!</b>"
+                "\n\nYou can now reply to images, stickers and animated sticker with /steal to add them to your pack"
+                "\n\n<b>Send /stickers to find sticker pack.</b>",
+                reply_markup=keyboard,
+                parse_mode=ParseMode.MARKDOWN
             )
         return
 
     if success:
         msg.reply_text(
-            "Sticker pack successfully created. Get it [here](t.me/addstickers/%s)"
-            % packname,
-            parse_mode=ParseMode.f"{name},
-        )
+                "<b>Your Sticker Pack has been created!</b>"
+                "\n\nYou can now reply to images, stickers and animated sticker with /steal to add them to your pack"
+                "\n\n<b>Send /stickers to find sticker pack.</b>",
+                reply_markup=keyboard,
+                parse_mode=ParseMode.MARKDOWN
+            )
     else:
         msg.reply_text("Failed to create sticker pack. Possibly due to blek mejik.")
 
@@ -546,20 +550,20 @@ def getsticker(update, context):
 @run_async
 def cb_sticker(update: Update, context: CallbackContext):
     msg = update.effective_message
-    split = msg.text.split(" ", 1)
+    split = msg.text.split(' ', 1)
     if len(split) == 1:
-        msg.reply_text("Provide some name to search for pack.")
+        msg.reply_text('Provide some name to search for pack.')
         return
     text = requests.get(combot_stickers_url + split[1]).text
-    soup = bs(text, "lxml")
-    results = soup.find_all("a", {"class": "sticker-pack__btn"})
+    soup = bs(text, 'lxml')
+    results = soup.find_all("a", {'class': "sticker-pack__btn"})
     titles = soup.find_all("div", "sticker-pack__title")
     if not results:
-        msg.reply_text("No results found :(.")
+        msg.reply_text('No results found :(.')
         return
     reply = f"Stickers for *{split[1]}*:"
     for result, title in zip(results, titles):
-        link = result["href"]
+        link = result['href']
         reply += f"\n• [{title.get_text()}]({link})"
     msg.reply_text(reply, parse_mode=ParseMode.MARKDOWN)
 
