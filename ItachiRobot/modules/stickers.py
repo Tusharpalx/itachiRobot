@@ -62,6 +62,7 @@ def kang(update: Update, context: CallbackContext):
                     + str(user.id)
                     + "_by_"
                     + context.bot.username
+                    + _pack
                 )
             else:
                 packname_found = 1
@@ -231,6 +232,7 @@ def kang(update: Update, context: CallbackContext):
                             + str(user.id)
                             + "_by_"
                             + context.bot.username
+                            + _pack
                         )
                     else:
                         packname_found = 1
