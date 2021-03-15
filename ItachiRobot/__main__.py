@@ -212,7 +212,7 @@ def start(update: Update, context: CallbackContext):
                      [
                        InlineKeyboardButton(
                          text="Help & Commands ❔",
-                         callback_data="help_back")
+                         url="https://t.me/ItachiRobot?start=help")
                      ]]))
             
     else:
@@ -345,9 +345,7 @@ def get_help(update: Update, context: CallbackContext):
                                        callback_data="help_back")]]))
 
     else:
-        update.effective_message.reply_photo(
-        SAITAMA_IMG
-        send_help(chat.id, HELP_STRINGS))
+        send_help(chat.id, HELP_STRINGS)
 
 
 def send_settings(chat_id, user_id, user=False):
