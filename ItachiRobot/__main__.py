@@ -346,8 +346,8 @@ def get_help(update: Update, context: CallbackContext):
 
     else:
         update.effective_message.reply_photo(
-        SAITAMA_IMG)
-        send_help(chat.id, HELP_STRINGS)
+        SAITAMA_IMG
+        send_help(chat.id, HELP_STRINGS))
 
 
 def send_settings(chat_id, user_id, user=False):
