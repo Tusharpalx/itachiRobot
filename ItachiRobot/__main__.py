@@ -345,6 +345,8 @@ def get_help(update: Update, context: CallbackContext):
                                        callback_data="help_back")]]))
 
     else:
+        update.effective_message.reply_photo(
+        SAITAMA_IMG)
         send_help(chat.id, HELP_STRINGS)
 
 
