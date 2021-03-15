@@ -208,11 +208,11 @@ def start(update: Update, context: CallbackContext):
                          InlineKeyboardButton(
                              text="📡 Updates Channel",
                              url="https://t.me/itachiUpdates")
-                     ],
+                    ],
                      [
-                         InlineKeyboardButton(
-                            text="🔗 Source Code",
-                            url="https://github.com/tusharpalx/itachiRobot")
+                       InlineKeyboardButton(
+                         text="Help & Commands ❔",
+                         callback_data="help_back")
                      ]]))
             
     else:
